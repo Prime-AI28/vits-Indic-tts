@@ -15,6 +15,15 @@ hyperparameter. Some cleaners are English-specific. You'll typically want to use
 import re
 from unidecode import unidecode
 from phonemizer import phonemize
+from text.sanskrit import devanagari_to_ipa
+
+
+def sanskrit_cleaners(text):
+    text = devanagari_to_ipa(text)
+    text = text.replace('॥', '।').replace('ॐ', 'ओम्')
+    text = re.sub(r'([^।])$', r'\1।', text)
+    return text
+
 
 
 # Regular expression matching whitespace:
